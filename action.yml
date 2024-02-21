@@ -24,7 +24,8 @@ runs:
         echo "Checking for install files"
         if [ -d "${{ inputs.install_script_path }}" ]; then
           echo "Install files found"
-          echo "##[set-output name=install_files;]${{ inputs.install_script_path }}"
+          echo "install_files=${{ inputs.install_script_path }}" >> $GITHUB_ENV
+          echo "The output is ${{ env.install_files }}"
         else
           echo "No install files found"
         fi
