@@ -1,0 +1,31 @@
+name: 'Check for Custom Install Scripts'
+description: 'Check for custom install scripts to be installed on the system'
+inputs:
+  install_script_path:
+    description: 'Path to the scripts'
+    required: true
+    default: 'scripts/install/'
+
+outputs:
+  install_files:
+    description: 'install files'
+    value: ${{ steps.install_files.outputs.install_files }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Check for Install Files
+      run: |
+        cd ${{ github.workspace }}
+        echo "Checking for install files"
+        if [ -d "${{ inputs.install_script_path }}" ]; then
+          echo "Install files found"
+          echo "##[set-output name=install_files;]${{ inputs.install_script_path }}"
+        else
+          echo "No install files found"
+        fi
+      shell: bash
