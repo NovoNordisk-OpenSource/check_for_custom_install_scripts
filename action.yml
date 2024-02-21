@@ -25,8 +25,12 @@ runs:
         if [ -d "${{ inputs.install_script_path }}" ]; then
           echo "Install files found"
           echo "install_files=${{ inputs.install_script_path }}" >> $GITHUB_ENV
-          echo "The output is ${{ env.install_files }}"
         else
           echo "No install files found"
         fi
+      shell: bash
+    - name: Print Install Files
+      id: install_files
+      run: |
+        echo "Install files: ${{ env.install_files }}"
       shell: bash
