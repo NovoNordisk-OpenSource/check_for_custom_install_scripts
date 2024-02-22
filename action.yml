@@ -22,9 +22,15 @@ runs:
       run: |
         cd ${{ github.workspace }}
         echo "Checking for install files"
+        inst_Script_files=()
         if [ -d "${{ inputs.install_script_path }}" ]; then
           echo "Install files found"
-          echo "install_files=${{ inputs.install_script_path }}" >> $GITHUB_ENV
+          files ${{ inputs.install_script_path }}/* 
+          for i on $(files[@]); do
+            echo "Found file: $i"
+            inst_Script_files+=($i)
+          done
+          echo "install_files=${{ inputs.install_script_path }}$inst_Script_files" >> $GITHUB_ENV
         else
           echo "No install files found"
         fi
