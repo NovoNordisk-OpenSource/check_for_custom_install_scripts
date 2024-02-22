@@ -28,7 +28,7 @@ runs:
           files=$(ls ${{ inputs.install_script_path }}/*)
           for i in ${files[@]}; do
             echo "Found file: $i"
-            inst_Script_files+=($i)
+            inst_Script_files+="$i\n"
           done
           echo "install_files=${{ inputs.install_script_path }}$inst_Script_files" >> $GITHUB_ENV
         else
