@@ -25,7 +25,7 @@ runs:
         inst_Script_files=()
         if [ -d "${{ inputs.install_script_path }}" ]; then
           echo "Install files found"
-          files ${{ inputs.install_script_path }}/* 
+          files=$(ls ${{ inputs.install_script_path }}/*)
           for i in $(files[@]); do
             echo "Found file: $i"
             inst_Script_files+=($i)
