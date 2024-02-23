@@ -35,8 +35,10 @@ runs:
           for i in ${files[@]}; do
             echo "Found file: $i"
             inst_Script_files+=($i)
-            code=$(git diff --quiet $sha_id -- $i)
-            echo $?
+            code=$(
+              git diff --quiet $sha_id -- $i
+              echo $?
+            )
             if [ $code -ne 0 ]; then
               echo "File has changed"
               changed_files+=($i)
