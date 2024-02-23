@@ -30,7 +30,7 @@ runs:
           files=$(ls ${{ inputs.install_script_path }}/*)
           git gc --force --quiet
           
-          sha_id=$(git rev-list -n 1 $(git describe --match="*#released" --abbrev=0 --tags $(git rev-list --tags --max-count=1)))
+          sha_id=$(git rev-list -n 1 $(git describe --match="release*" --abbrev=0 --tags $(git rev-list --tags --max-count=1)))
           
           for i in ${files[@]}; do
             echo "Found file: $i"
