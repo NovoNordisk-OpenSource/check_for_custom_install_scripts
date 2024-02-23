@@ -41,10 +41,10 @@ runs:
             )
             if [ $code -ne 0 ]; then
               echo "File has changed"
-              changed_files+=($i)
+              changed_files+=($i)"\n"
             fi
           done
-          echo "Install Files Changed: ${changed_files[@]}"
+          echo -e "Install Files Changed: ${changed_files[@]}"
           echo "install_files=true" >> $GITHUB_ENV
         else
           echo "install_files=false" >> $GITHUB_ENV
