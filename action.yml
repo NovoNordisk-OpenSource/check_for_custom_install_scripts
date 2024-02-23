@@ -10,6 +10,9 @@ outputs:
   install_files:
     description: 'install files'
     value: ${{ steps.install_files.outputs.install_files }}
+  changed_files:
+    description: 'install files'
+    value: ${{ steps.changed_files.outputs.changed_files }}
 
 runs:
   using: 'composite'
@@ -21,22 +24,26 @@ runs:
     - name: Check for Install Files
       run: |
         cd ${{ github.workspace }}
-        echo "Checking for install files"
         inst_Script_files=()
         if [ -d "${{ inputs.install_script_path }}" ]; then
           echo "Install files found"
           files=$(ls ${{ inputs.install_script_path }}/*)
+          git gc --force --quiet
+          
+          sha_id=$(git rev-list -n 1 $(git describe --match="*#released" --abbrev=0 --tags $(git rev-list --tags --max-count=1)))
+          
           for i in ${files[@]}; do
             echo "Found file: $i"
-            inst_Script_files+=$i"\n"
+            inst_Script_files+=($i)
+            code=$(git diff --quiet $sha_id -- $i)
+            if [ $code -ne 0 ]; then
+              echo "File has changed"
+              changed_files+=($i)
+            fi
           done
-          echo "install_files=${{ inputs.install_script_path }}"\n"$inst_Script_files" >> $GITHUB_ENV
+          echo "Install Files Changed: ${changed_files[@]}"
+          echo "install_files=true" >> $GITHUB_ENV
         else
-          echo "No install files found"
+          echo "install_files=false" >> $GITHUB_ENV
         fi
-      shell: bash
-    - name: Print Install Files
-      id: install_files
-      run: |
-        echo -e "Install files: ${{ env.install_files }}"
       shell: bash
