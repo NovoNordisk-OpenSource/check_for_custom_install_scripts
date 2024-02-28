@@ -45,8 +45,8 @@ runs:
             fi
           done
           echo -e "Install Files Changed: ${changed_files[@]}"
-          echo "install_files=true" >> $GITHUB_output
+          echo "install_files=true" >> $GITHUB_OUTPUT
         else
-          echo "install_files=false" >> $GITHUB_output
+          echo "install_files=false" >> $GITHUB_PUT
         fi
       shell: bash
