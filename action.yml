@@ -1,21 +1,21 @@
-name: 'Check for Custom Install Scripts'
-description: 'Check for custom install scripts to be installed on the system'
+name: "Check for Custom Install Scripts"
+description: "Check for custom install scripts to be installed on the system"
 inputs:
   install_script_path:
-    description: 'Path to the scripts'
+    description: "Path to the scripts"
     required: true
-    default: 'scripts/install/'
+    default: "scripts/install/"
 
 outputs:
   install_files:
-    description: 'install files'
+    description: "install files"
     value: ${{ steps.install_files.outputs.install_files }}
   changed_files:
-    description: 'install files'
+    description: "install files"
     value: ${{ steps.changed_files.outputs.changed_files }}
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -45,8 +45,8 @@ runs:
             fi
           done
           echo -e "Install Files Changed: ${changed_files[@]}"
-          echo "install_files=true" >> $GITHUB_ENV
+          echo "install_files=true" >> $GITHUB_output
         else
-          echo "install_files=false" >> $GITHUB_ENV
+          echo "install_files=false" >> $GITHUB_output
         fi
       shell: bash
