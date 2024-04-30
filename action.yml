@@ -1,27 +1,25 @@
-name: "Check for Custom Install Scripts"
-description: "Check for custom install scripts to be installed on the system"
+name: 'Check for Custom Install Scripts'
+description: 'Check for custom install scripts to be installed on the system'
 inputs:
   install_script_path:
-    description: "Path to the scripts"
+    description: 'Path to the scripts'
     required: true
-    default: "scripts/install/"
+    default: 'scripts/install/'
 
 outputs:
   install_files:
-    description: "install files"
+    description: 'install files'
     value: ${{ steps.install_files.outputs.install_files }}
-  changed_files:
-    description: "install files"
-    value: ${{ steps.changed_files.outputs.changed_files }}
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Check for Install Files
+      id: install_files
       run: |
         cd ${{ github.workspace }}
         inst_Script_files=()
