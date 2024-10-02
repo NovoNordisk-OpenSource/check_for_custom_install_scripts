@@ -23,6 +23,8 @@ runs:
       run: |
         cd ${{ github.workspace }}
         inst_Script_files=()
+        echo "This is the install script path:"
+        echo ${{ inputs.install_script_path }} 
         if [ -d "${{ inputs.install_script_path }}" ]; then
           echo "Install files found"
           files=$(ls ${{ inputs.install_script_path }}/*)
@@ -46,5 +48,6 @@ runs:
           echo "install_files=true" >> $GITHUB_OUTPUT
         else
           echo "install_files=false" >> $GITHUB_OUTPUT
+          echo "Install files folder doesn't exsist!!"
         fi
       shell: bash
