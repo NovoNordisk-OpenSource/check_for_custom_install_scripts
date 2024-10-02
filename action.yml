@@ -45,9 +45,9 @@ runs:
             fi
           done
           echo -e "Install Files Changed: ${changed_files[@]}"
-          echo "install_files=true" >> $GITHUB_OUTPUT
+          echo "install_files=true" >> $GITHUB_ENV
         else
-          echo "install_files=false" >> $GITHUB_OUTPUT
+          echo "install_files=false" >> $GITHUB_ENV
           echo "Install files folder doesn't exsist!!"
         fi
       shell: bash
