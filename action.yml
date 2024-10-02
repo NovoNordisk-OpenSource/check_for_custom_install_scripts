@@ -47,7 +47,7 @@ runs:
           echo -e "Install Files Changed: ${changed_files[@]}"
           echo "install_files=true" >> $GITHUB_OUTPUT
         else
-          echo "install_files=false" >> $GITHUB_OUTPUT
+          echo "install_files='false' >> $GITHUB_OUTPUT
           echo "Install files folder doesn't exist!!"
           echo $GITHUB_OUTPUT
         fi
