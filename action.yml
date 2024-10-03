@@ -4,7 +4,7 @@ inputs:
   install_script_path:
     description: 'Path to the scripts'
     required: true
-    default: 'scripts/install/'
+    default: 'scripts/install'
 
 outputs:
   install_files:
